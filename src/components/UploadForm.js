@@ -2,9 +2,11 @@
 import { useState } from "react";
 import UploadIcon from "./UploadIcon";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function UploadForm() {
   const [isUploading, setIsUploading] = useState(false);
+  const router = useRouter();
 
   async function upload(e) {
     e.preventDefault();
@@ -17,7 +19,10 @@ export default function UploadForm() {
         file,
       });
       setIsUploading(false);
-      console.log(res.data);
+      // console.log(res.data);
+
+      const newName = res.data.newName;
+      router.push("/" + newName);
     }
   }
   return (
